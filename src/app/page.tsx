@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type Product = {
@@ -17,9 +18,10 @@ type Product = {
 export default function Home() {
   const [isFetching, setIsFetching] = useState(false);
   const [isShowToast, setIsShowToast] = useState(true);
+  const { push } = useRouter();
   const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ["products"],
-
+    enabled: isFetching,
     queryFn: async () => {
       const res = await fetch("https://fakestoreapi.com/products");
       return res.json();
@@ -77,6 +79,7 @@ export default function Home() {
             {data?.map((product: Product) => {
               return (
                 <div
+                  onClick={() => push(`/detail/${product.id}`)}
                   key={`product-${product.id}`}
                   className="border rounded-md p-2 flex flex-col items-center"
                 >
