@@ -70,32 +70,41 @@ export default function Home() {
             Fetch data
           </Button>
         ) : (
-          <div className="grid grid-cols-4 gap-3">
-            {isShowToast && isSuccess && (
-              <div className="fixed top-5 animate-in slide-in-from-right right-7 z-50 p-3 border rounded-md">
-                <p>Success Fettching Data</p>
-              </div>
-            )}
-            {data?.map((product: Product) => {
-              return (
-                <div
-                  onClick={() => push(`/detail/${product.id}`)}
-                  key={`product-${product.id}`}
-                  className="border rounded-md p-2 flex flex-col items-center"
-                >
-                  <Image
-                    src={product.image}
-                    width={200}
-                    height={200}
-                    alt={product.title}
-                    className="h-52 w-fit"
-                  ></Image>
-                  <p className="line-clamp-1">{product.title}</p>
-                  <p>{product.price}</p>
+          <>
+            <Button
+              className="my-5"
+              variant={"default"}
+              onClick={() => push("/add")}
+            >
+              Add Product
+            </Button>
+            <div className="grid grid-cols-4 gap-3">
+              {isShowToast && isSuccess && (
+                <div className="fixed top-5 animate-in slide-in-from-right right-7 z-50 p-3 border rounded-md">
+                  <p>Success Fettching Data</p>
                 </div>
-              );
-            })}
-          </div>
+              )}
+              {data?.map((product: Product) => {
+                return (
+                  <div
+                    onClick={() => push(`/detail/${product.id}`)}
+                    key={`product-${product.id}`}
+                    className="border rounded-md p-2 flex flex-col items-center"
+                  >
+                    <Image
+                      src={product.image}
+                      width={200}
+                      height={200}
+                      alt={product.title}
+                      className="h-52 w-fit"
+                    ></Image>
+                    <p className="line-clamp-1">{product.title}</p>
+                    <p>{product.price}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </>
         )}
       </div>
     </div>
